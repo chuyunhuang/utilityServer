@@ -1,4 +1,3 @@
-
 const math = require('./service/math')
 // 1 - Import Express Library
 const express = require('express');
@@ -9,32 +8,37 @@ const port = 6265;
 
 // 4 - Define your Server's Routes
 app.get('/', (req, res) => {
-  
+
   res.send('This is the home page.');
 });
 
-app.get('/math/add', (req, res)=>{
-  
-let value = Object.values(req.query)
+app.get('/math/add', (req, res) => {
 
-  res.send({
-    input: req.query,
-    sumString: math.sumString(value),
-    sum: math.getSum(value), 
-  })
+  let value = Object.values(req.query)
 
+  if (math.isNumber(value)) {
+    res.send('Input must be number')
+  } else {
+    res.send({
+      input: req.query,
+      sumString: math.sumString(value),
+      sum: math.getSum(value),
+    })
+  }
 })
 
-app.get('/math/multiply', (req, res)=>{
+app.get('/math/multiply', (req, res) => {
 
-let value = Object.values(req.query)
-
-  res.send({
-    input: req.query,
-    productString:math.productString(value),
-    product: math.getMultiply(value),
-})
-
+  let value = Object.values(req.query)
+  if (math.isNumber(value)) {
+    res.send('Input must be number')
+  } else {
+    res.send({
+      input: req.query,
+      productString: math.productString(value),
+      product: math.getMultiply(value),
+    })
+  }
 })
 
 // Final - Get your App Server to listen for requests
