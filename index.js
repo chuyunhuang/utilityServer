@@ -1,4 +1,5 @@
 const math = require('./service/math')
+const gif = require('./service/gif')
 // 1 - Import Express Library
 const express = require('express');
 // 2 - Initiate an Express App
@@ -39,6 +40,15 @@ app.get('/math/multiply', (req, res) => {
       product: math.getMultiply(value),
     })
   }
+})
+
+app.get('/gif/', (req, res) => {
+
+gif.getGifs(req.query.search, (data) =>{
+  res.send(data)
+  // console.log(data)
+})
+     
 })
 
 // Final - Get your App Server to listen for requests
